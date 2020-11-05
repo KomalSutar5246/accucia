@@ -1,0 +1,30 @@
+{
+  "name": "hindustanhandloom",
+  "version": "1.0.0",
+  "description": "This is an E-commerce handloom website, to upload, promote and sale products. This mainly a south handloom categorized product site.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaroonsBusinessSolutions/Hindustan-Handloom.git"
+  },
+  "author": "Maroons Business Solutions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaroonsBusinessSolutions/Hindustan-Handloom/issues"
+  },
+  "homepage": "https://github.com/MaroonsBusinessSolutions/Hindustan-Handloom#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "mongoose": "^5.10.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
