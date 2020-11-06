@@ -41,7 +41,7 @@ const userSchema = new  mongoose.Schema({
     role: {
         type: String,
         enum: ['user', 'admin'],
-        default:'admin'
+        default:'user'
     },
     contactNumber: {
         type: String
@@ -54,6 +54,11 @@ const userSchema = new  mongoose.Schema({
 
 userSchema.virtual('password').set(function(password){
 this.hash_password = bcrypt.hashSync(password, 10);
+});
+
+userSchema.virtual('fullName')
+.get(function(){
+ return `${this.firstName} ${this.lastName}`;
 });
 
 userSchema.methods = {

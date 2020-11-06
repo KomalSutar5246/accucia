@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 
 // routes
-const userRoutes = require('./src/routes/user');
-
+const authRoutes = require('./src/routes/auth');
+const adminRoutes = require('./src/routes/admin/auth');
 
 //environment variables or you can say constants
 env.config();
@@ -42,7 +42,8 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 
-app.use('/api', userRoutes);
+app.use('/api', authRoutes);
+app.use('/api', adminRoutes);
 
 app.listen(2000, () => {
     console.log(`Server is running on port ${2000}`);
