@@ -47,7 +47,7 @@ app.use(express.json());
 app.use(express.json());
 app.use('/public', express.static(path.join((path.dirname(__dirname, 'uploads' )))));
 app.use('/api', authRoutes);
-app.use('/api', adminRoutes);
+app.use('/api', adminRoutes); 
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
