@@ -3,7 +3,7 @@ const env = require ('dotenv');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
-
+const cors = require('cors');
 // routes
 const authRoutes = require('./src/routes/auth');
 const adminRoutes = require('./src/routes/admin/auth');
@@ -44,6 +44,8 @@ app.use(express.json());
 //     });
 // });
 
+
+app.use(cors());
 app.use(express.json());
 app.use('/public', express.static(path.join((path.dirname(__dirname, 'uploads' )))));
 app.use('/api', authRoutes);
