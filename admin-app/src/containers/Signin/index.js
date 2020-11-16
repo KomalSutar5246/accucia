@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import Input from "../../components/UI/Input";
 import { login } from '../../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector  } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { isUserLoggedIn } from '../../actions/auth.actions';
 
 /**
  * @author
@@ -14,9 +16,17 @@ const Signin = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [error, setError] = useState('');
+  const [error, setError] = useState('');
+  const auth = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
+
+useEffect(() => {
+  if(!auth.authenticate){
+    dispatch(isUserLoggedIn());
+  }
+  
+}, []);
 
 
 const userLogin = (e) => {
@@ -30,6 +40,11 @@ const userLogin = (e) => {
 
   dispatch(login(user));
 };
+
+//once admin logged in it should redirect to home 
+if(auth.authenticate){
+  return <Redirect to={'/'} />
+}
 
   return (
     <Layout>

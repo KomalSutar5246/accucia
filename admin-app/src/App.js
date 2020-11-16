@@ -4,6 +4,7 @@ import './App.css';
 import Home from './containers/Home';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
+import PrivateRoute from '../src/components/HOC/PrivateRoute';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
      
 <Router>
   <Switch>
-    <Route path="/" exact component={Home} /> 
+    <PrivateRoute path="/" exact component={Home} /> 
     <Route path="/Signin" component={Signin} /> 
     <Route path="/Signup" component={Signup} /> 
   </Switch>
