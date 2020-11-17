@@ -43,6 +43,8 @@ console.log(user);
     }
 }
 
+
+
 export const isUserLoggedIn = () => {
     return async dispatch => {
         const token = localStorage.getItem('token');
@@ -60,5 +62,14 @@ export const isUserLoggedIn = () => {
                 payload: { error: 'Failed to login' }
             });
         }
+    }
+}
+
+export const signout = () => {
+    return async dispatch => {
+        localStorage.clear();
+        dispatch({
+            type: authConstants.LOGOUT_REQUEST
+        });
     }
 }
