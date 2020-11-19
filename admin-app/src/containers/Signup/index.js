@@ -49,7 +49,7 @@ if(user.loading){
 
     <Layout>
       <Container>
-        { user. message }
+        { user.message }
         <Row style={{ marginTop: '50px' }}>
           <Col md={{ span:6, offset: 3}}>
             <Form onSubmit={userSignup}>
