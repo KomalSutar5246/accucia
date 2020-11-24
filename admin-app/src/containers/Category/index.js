@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
-import { Row, Col, Container, Modal, Button,  } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategory, addCategory } from '../../actions';
+import {  addCategory } from '../../actions';
 import Input from '../../../src/components/UI/Input';
-
+import Modal from '../../../src/components/UI/Modal';
 /**
 * @author
 * @function Category
@@ -18,11 +18,7 @@ const Category = (props) => {
   const [ show, setShow ] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // console.log( `Category.js`)
-    dispatch(getAllCategory());
-  }, [dispatch]);
-
+  
 //button functions of modal
   const handleClose = () => {
     const form = new FormData();
@@ -46,35 +42,40 @@ const Category = (props) => {
   } 
   const handleShow = () => setShow(true);
 
-  const renderCategoryList = (categoryList) => {
+  const renderCategories = (categories) => {
 
-    let myCategoryList = [];
+    let myCategories = [];
 
-    for (let category  of categoryList){
-      myCategoryList.push(
+    for (let category  of categories){
+      myCategories.push(
         <li key={category.name}>
           {category.name}
           {category.children.length > 0 ? (<ul>
-            {renderCategoryList(category.children)} 
+            {renderCategories(category.children)} 
             </ul>) : null}
         </li>
       );
     }
-    return myCategoryList;
+    return myCategories;
       
    }
 
-const createCategoryList = (categoryList, options = []) =>
-{
-  for(let category of categoryList){
-    options.push({ value: category._id, name: category.name })
-    if(category.children.length > 0) {
-      createCategoryList( category.children, options )
-    }
-  }
+const createCategoryList = (categories, options = []) => {
 
-  return options;
-}
+        for (let category of categories) {
+            options.push({
+                value: category._id,
+                name: category.name,
+                parentId: category.parentId,
+                type: category.type
+            });
+            if (category.children.length > 0) {
+                createCategoryList(category.children, options)
+            }
+        }
+
+        return options;
+    }
 
 //function to handle category Image
 
@@ -89,54 +90,44 @@ const handleCategoryImage = (e) => {
       <Col md={12}>
         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
         <h3>Category</h3>
-        <button onClick={handleShow}>Add</button>
+
+        <button onClick={ handleShow }>Add</button>
         </div>
       </Col>
     </Row>
     <Row>
       <Col md={12}>
         <ul>
-            { renderCategoryList(category.categoryList)}
-            {/* { JSON.stringify(createCategoryList(category.categoryList))} */}
+            { renderCategories(category.categories) }
         </ul>
       </Col>
     </Row>
   </Container>
 
-  <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Category</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Input 
-            value = { categoryName }
-            placeholder = { `Category Name`}
-            onChange = { (e) => setCategoryName(e.target.value)}
-          />  
+  <Modal
+    show={show}
+    handleClose= {handleClose}
+    modalTitle = { 'Add New Category '} 
+  >
+  
+  <Input 
+      value = { categoryName }
+      placeholder = { `Category Name`}
+      onChange = { (e) => setCategoryName(e.target.value)}
+  />  
 
-          <select className="form-control"
-          value = {parentCategoryId} 
-          onChange={(e) => setParentCategoryId(e.target.value)}>
-            <option> select category </option>
-            {
-              createCategoryList(category.categoryList).map(option => 
-              <option key = { option.value } value = { option.value }> { option.name } </option>)
-            }
-          </select>
+    <select className="form-control"
+      value = {parentCategoryId} 
+      onChange={(e) => setParentCategoryId(e.target.value)}>
+    <option> select category </option>
+      {
+      createCategoryList(category.categories).map(option => 
+    <option key = { option.value } value = { option.value }> { option.name } </option>)
+      }
+    </select>
 
-          <input type="file" name="categoryImage" onChange = {  handleCategoryImage} />
-
-        </Modal.Body>
-        <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button> */}
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
+    <input type="file" name="categoryImage" onChange = {  handleCategoryImage} />
+    </Modal>
   </Layout>
   )
 }
@@ -144,4 +135,3 @@ const handleCategoryImage = (e) => {
 
 
 export {Category as default};
- 

@@ -6,7 +6,7 @@ const initState = {
     loading: false
 }
 
-export default (state = initState, action) => {
+const rootReducer = (state = initState, action) => {
     switch(action.type){
         case userConstants.USER_REGISTER_REQUEST:
             state = {
@@ -32,3 +32,5 @@ export default (state = initState, action) => {
     }
     return state;
 }
+
+export default rootReducer;

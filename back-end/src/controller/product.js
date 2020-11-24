@@ -3,6 +3,7 @@ const Slugify = require ('slugify');
 const { default: slugify } = require('slugify');
 const shortid = require ('shortid');
 const path = require('path');
+const Category = require('../models/category');
 
 exports.createProduct = (req, res) => {
     
