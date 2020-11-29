@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategory, getAllCategory, updateCategories } from "../../actions";
+import { 
+  addCategory, 
+  getAllCategory, 
+  updateCategories,
+  deleteCategories as deleteCategoriesAction
+ } from "../../actions";
 import Input from "../../../src/components/UI/Input";
 import Modal from "../../../src/components/UI/Modal";
 import CheckboxTree from "react-checkbox-tree";
@@ -28,6 +33,7 @@ const Category = (props) => {
   const [checkedArray, setCheckedArray] = useState([]);
   const [expandedArray, setExpandedArray] = useState([]);
   const [updateCategoryModal, setUpdateCategoryModal] = useState(false);
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const dispatch = useDispatch();
 
   //button functions of modal
@@ -95,11 +101,15 @@ const Category = (props) => {
   };
 
   const updateCategory = () => {
+    updateCheckedAndExpandedCategories();
     setUpdateCategoryModal(true);
-    const categories = createCategoryList(category.categories);
+    
+  };
+
+const updateCheckedAndExpandedCategories = () => {
+  const categories = createCategoryList(category.categories);
     const checkedArray = [];
     const expandedArray = [];
-
     checked.length > 0 &&
       checked.forEach((categoryId, index) => {
         const category = categories.find(
@@ -107,7 +117,6 @@ const Category = (props) => {
         );
         category && checkedArray.push(category);
       });
-
     expanded.length > 0 &&
       expanded.forEach((categoryId, index) => {
         const category = categories.find(
@@ -115,22 +124,19 @@ const Category = (props) => {
         );
         category && expandedArray.push(category);
       });
-
     setCheckedArray(checkedArray);
     setExpandedArray(expandedArray);
-
-    console.log({ checked, expanded, categories, checkedArray, expandedArray });
-  };
+}
 
 const handleCategoryInput = (key, value, index, type) => {
-    if (type == "checked") {
+    if (type === "checked") {
       const updatedCheckedArray = checkedArray.map((item, _index) =>
-        index == _index ? { ...item, [key]: value } : item
+        index === _index ? { ...item, [key]: value } : item
       );
       setCheckedArray(updatedCheckedArray);
-    } else if (type == "expanded") {
+    } else if (type === "expanded") {
       const updatedExpandedArray = expandedArray.map((item, _index) =>
-                index == _index ? { ...item, [key]: value } : item);
+                index === _index ? { ...item, [key]: value } : item);
             setExpandedArray(updatedExpandedArray);
     }
   };
@@ -153,12 +159,16 @@ const updateCategoriesForm = () => {
       dispatch(updateCategories(form))
       .then(result => {
         if(result){
-          dispatch(getAllCategory())
+          dispatch(getAllCategory());
+          setUpdateCategoryModal(false);
         }
       })
 
       }
 
+
+
+// UPDATE Categories Modal
   const renderUpdateCategoriesModal = () => {
     return (
       <Modal
@@ -292,6 +302,7 @@ const updateCategoriesForm = () => {
     );
   }
 
+// ADD Category Modal
   const renderAddCategoryModal = () => {
     return (
       <Modal
@@ -324,6 +335,55 @@ const updateCategoriesForm = () => {
         onChange={handleCategoryImage}
       />
     </Modal>
+    );
+  }
+// DELETE Category Method
+const deleteCategory = () => {
+  updateCheckedAndExpandedCategories();
+  setDeleteCategoryModal(true);
+}
+
+const deleteCategories = () => {
+   const checkedIdsArray = checkedArray.map((item, index) => ({_id: item.value}));
+   const expandedIdsArray = expandedArray.map((item, index) => ({_id: item.value}));
+   const idsArray =  expandedIdsArray.concat(checkedIdsArray);
+   dispatch(deleteCategoriesAction(idsArray))
+   .then(result => {
+     if(result){
+       dispatch(getAllCategory());
+       setDeleteCategoryModal(false);
+     }
+   });
+}
+
+// DELETE Category Modal
+const renderDeleteCategoryModal = () => {
+
+    return(
+      <Modal
+        modalTitle = {" Confirmation Popup "}
+        show = {deleteCategoryModal}
+        handleClose = {() => setDeleteCategoryModal(false)}
+        buttons = {[
+          {
+            label: 'No',
+            color: 'primary',
+            onClick: () => {
+              alert('no');
+            }
+          },
+          {
+            label: 'Yes',
+            color: 'danger',
+            onClick: deleteCategories
+          }
+        ]}
+      >
+        <h5> Expanded</h5>
+        { expandedArray.map( (item, index) => <span key={index}> {item.name} </span>) }
+        <h5> Checked </h5>
+        { checkedArray.map( (item, index) => <span key={index}> {item.name} </span>) }
+      </Modal>
     );
   }
 
@@ -361,7 +421,7 @@ const updateCategoriesForm = () => {
         </Row>
         <Row>
           <Col>
-            <button>Delete</button> &nbsp;
+            <button onClick={deleteCategory}>Delete</button> &nbsp;
             <button onClick={updateCategory}>Edit</button>
           </Col>
         </Row>
@@ -369,6 +429,7 @@ const updateCategoriesForm = () => {
 
         { renderAddCategoryModal() }
         { renderUpdateCategoriesModal() }
+        { renderDeleteCategoryModal() }
       
     </Layout>
   );

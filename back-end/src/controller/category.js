@@ -1,6 +1,7 @@
 const Category = require('../models/category');
 const Slugify = require ('slugify');
 const { default: slugify } = require('slugify');
+const shortid = require('shortid');
 
 
 function createCategories( categories, parentId = null){
@@ -27,11 +28,9 @@ function createCategories( categories, parentId = null){
 }
 
 exports.addCategory =  (req, res) => {
-
-
         const categoryObj = {
             name: req.body.name,
-            slug: slugify(req.body.name)
+            slug: `${slugify(req.body.name)}-${shortid.generate()}`
         };
 
         if(req.file){
@@ -70,10 +69,8 @@ exports.getCategories = (req, res) => {
 }
 
 exports.updateCategories = async (req, res) => {
-
     const {_id, name, parentId, type} = req.body;
     const updatedCategories = [];
-
     if(name instanceof Array){
         for(let i=0; i<name.length; i++ ){
             const category = {
@@ -83,12 +80,10 @@ exports.updateCategories = async (req, res) => {
             if(parentId[i] !== ""){
                 category.parentId = parentId[i];
             }
-
             const updatedCategory = await Category.findOneAndUpdate( { _id: _id[i] }, category, {new: true});
             updatedCategories.push(updatedCategory);
         }
         return res.status(201).json({ updateCategories: updatedCategories });
-
     }else{
         const category = {
             name,
@@ -102,4 +97,20 @@ exports.updateCategories = async (req, res) => {
           });
         return res.status(201).json({ updatedCategory });
     }
+}
+
+exports.deleteCategories = async (req, res) => {
+    const { ids } = req.body.payload;
+    const deletedCategories = []; 
+
+    for(let i=0; i < ids.length; i++ ){
+        const deleteCategory =  await Category.findOneAndDelete({ _id: ids[i]._id });
+        deletedCategories.push(deleteCategory);
+    }
+    if(deletedCategories.length == ids.length){
+        res.status(201).json({message: 'Category Removed Successfully!!'});
+    }else {
+        response.status(400).json({message: 'Something went wrong!!'});
+    }
+    
 }
