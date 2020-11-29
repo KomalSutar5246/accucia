@@ -16,7 +16,7 @@ const MenuHeader = (props) => {
 
   useEffect(() => {
     dispatch(getAllCategory() )
-  }, []);
+  }, [dispatch]);
 
   const renderCategories = (categories) => {
     let myCategories = [];

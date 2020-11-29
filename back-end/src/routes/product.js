@@ -2,7 +2,7 @@ const express = require ('express');
 const { create } = require('../models/user');
 
 const { default: slugify } = require('slugify');
-const { createProduct } = require('../controller/product');
+const { createProduct, getProductsBySlug } = require('../controller/product');
 const { requireSignin, adminMiddleware } = require('../common-middleware');
 const Product = require ('../models/product');
 const multer = require ('multer');
@@ -24,7 +24,8 @@ const storage = multer.diskStorage({
   const upload = multer({ storage });
 
 router.post('/product/create', requireSignin, adminMiddleware, upload.array('productPicture'), createProduct);
-    // const { } = req.body
+router.get('/products/:slug', getProductsBySlug);   
+// const { } = req.body
    
 
 // router.get('/category/getcategory', getCategories);   

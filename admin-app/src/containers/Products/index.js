@@ -220,7 +220,7 @@ const handleProductPictures = (e) => {
               <div style={{display : 'flex'}}>
               {productDetails.productPictures.map(picture => 
               <div className="productImgContainer">
-                <img src={generatePublicUrl(picture.img)}  />
+                <img alt= "img URL" src={generatePublicUrl(picture.img) }  />
               </div>
             )}
               </div>
