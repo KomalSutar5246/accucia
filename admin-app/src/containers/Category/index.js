@@ -179,6 +179,7 @@ const Category = (props) => {
         }
       });
     }
+    setDeleteCategoryModal(false);
   };
 
   // DELETE Category Modal
