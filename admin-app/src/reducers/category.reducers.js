@@ -84,6 +84,25 @@ const rootReducer =  (state = initState, action) =>
                 ...initState
             }
         break;
+        case categoryConstants.UPDATE_CATEGORY_REQUEST:
+           state = {
+            ...state,
+            loading: true
+            }
+        break;
+        case categoryConstants.UPDATE_CATEGORY_SUCCESS:
+            state = {
+                ...state,
+                loading: false
+            }
+        break;
+        case categoryConstants.UPDATE_CATEGORY_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error
+            }
+        break;
+
     }   
     return state;
 }
