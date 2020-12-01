@@ -16,14 +16,15 @@ const UpdateCategoriesModal = (props) => {
         checkedArray,
         handleCategoryInput,
         categoryList,
+        onSubmit
      } = props;
-
+    console.log({expandedArray, checkedArray});
 
     return (
       <Modal
       show={show}
       handleClose={handleClose}
-      // onSubmit={onSubmit}
+      onSubmit={onSubmit}
       modalTitle={modalTitle}
       size={size}
       >
@@ -114,7 +115,7 @@ const UpdateCategoriesModal = (props) => {
                   <select
                     className="form-control"
                     value={item.parentId}
-                    onChange={(e) =>handleCategoryInput(
+                    onChange={(e) => handleCategoryInput(
                       'parentId',
                       e.target.value,
                       index,

@@ -55,8 +55,11 @@ const Category = (props) => {
     form.append("parentId", parentCategoryId);
     form.append("categoryImage", categoryImage);
     dispatch(addCategory(form));
+    setCategoryName('');
+    setParentCategoryId('');
     setShow(false);
   };
+
   const handleShow = () => setShow(true);
 
   const renderCategories = (categories) => {
@@ -261,8 +264,9 @@ const categoryList = createCategoryList(category.categories);
       <AddCategoryModal
          show={show}
          // handleClose={() => setUpdateCategoryModal(false)}
-         handleClose={handleClose}
-         onSubmit={updateCategoriesForm}
+        handleClose={() => setShow(false)}
+        //  onSubmit={updateCategoriesForm}
+        onSubmit={handleClose}
          modalTitle={"Add New Category"}
         categoryName={categoryName}
         setCategoryName={setCategoryName}
@@ -274,9 +278,9 @@ const categoryList = createCategoryList(category.categories);
 
       <UpdateCategoriesModal
         show={updateCategoryModal}
+        onSubmit={updateCategoriesForm}
         // handleClose={() => setUpdateCategoryModal(false)}
         handleClose={updateCategoriesForm}
-        onSubmit={updateCategoriesForm}
         modalTitle={"Update Categories "}
         size="lg"
         expandedArray={expandedArray}

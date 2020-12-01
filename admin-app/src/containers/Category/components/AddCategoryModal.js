@@ -14,6 +14,7 @@ const AddCategoryModal = (props) => {
     setParentCategoryId,
     categoryList,
     handleCategoryImage,
+    onSubmit
   } = props;
 
   return (

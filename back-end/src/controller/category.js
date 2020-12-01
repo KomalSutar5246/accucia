@@ -15,6 +15,7 @@ function createCategories( categories, parentId = null){
         {
             category = categories.filter(cat => cat.parentId == parentId)
         }
+
     for ( let cate of category){
         categoryList.push({
             _id: cate._id,
@@ -47,7 +48,7 @@ exports.addCategory =  (req, res) => {
         cat.save((error, category) => {
             if(error)return res.status(400).json({error});
             if(category) {
-                return res.status(200).json({category}); 
+                return res.status(201).json({category}); 
             }
     
         });
@@ -73,7 +74,7 @@ exports.updateCategories = async (req, res) => {
     const {_id, name, parentId, type} = req.body;
     const updatedCategories = [];
     if(name instanceof Array){
-        for(let i=0; i<name.length; i++ ){
+        for(let i=0; i < name.length; i++ ){
             const category = {
                 name: name[i],
                 type: type[i]
@@ -88,7 +89,7 @@ exports.updateCategories = async (req, res) => {
     }else{
         const category = {
             name,
-            type
+            type,
         };
         if (parentId !== "") {
             category.parentId = parentId;
@@ -111,7 +112,7 @@ exports.deleteCategories = async (req, res) => {
     if(deletedCategories.length == ids.length){
         res.status(201).json({message: 'Category Removed Successfully!!'});
     }else {
-        response.status(400).json({message: 'Something went wrong!!'});
+        res.status(400).json({message: 'Something went wrong!!'});
     }
     
 }

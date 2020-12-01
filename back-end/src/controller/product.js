@@ -4,7 +4,7 @@ const { default: slugify } = require('slugify');
 const shortid = require ('shortid');
 const path = require('path');
 const Category = require('../models/category');
-const product = require('../models/product');
+
 
 exports.createProduct = (req, res) => {
     
@@ -53,7 +53,7 @@ const product = new Product ({
 exports.getProductsBySlug = (req, res ) => {
     const { slug } = req.params;
     Category.findOne({ slug: slug})
-    .select('_id')
+    .select('_id type')
     .exec((error, category) => {
         if(error){
             return res.status(400).json({ error })
@@ -70,11 +70,11 @@ exports.getProductsBySlug = (req, res ) => {
                     res.status(200).json({
                         products,
                         productsByPrice : {
-                            under5K: products.filter(product => product.price <= 5000),
-                            under10K: products.filter(product => product.price > 5000 && product.price <= 10000),
-                            under15K: products.filter(product => product.price > 10000 && product.price <= 15000),
-                            under20K: products.filter(product => product.price > 15000 && product.price <= 20000),
-                            under30K: products.filter(product => product.price > 20000 && product.price <= 30000),
+                            under5K: products.filter((product) => product.price <= 5000),
+                            under10K: products.filter((product) => product.price > 5000 && product.price <= 10000),
+                            under15K: products.filter((product) => product.price > 10000 && product.price <= 15000),
+                            under20K: products.filter((product) => product.price > 15000 && product.price <= 20000),
+                            under30K: products.filter((product) => product.price > 20000 && product.price <= 30000),
                         } 
                     });
                 }

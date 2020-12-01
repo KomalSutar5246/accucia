@@ -11,6 +11,7 @@ const categoryRoutes = require('./src/routes/category');
 const productRoutes = require('./src/routes/product');
 const cartRoutes = require('./src/routes/cart');
 const initialDataRoutes = require('./src/routes/admin/initialData');
+const pageRoutes = require('./src/routes/admin/page');
 
 //environment variables or you can say constants
 env.config();
@@ -55,6 +56,8 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', initialDataRoutes);
+app.use('/api', pageRoutes);
+
 app.listen(2000, () => {
     console.log(`Server is running on port ${2000}`);
 });
