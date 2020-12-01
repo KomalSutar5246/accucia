@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import { Row, Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,12 +17,12 @@ import {
   IoIosArrowDown,
   IoIosAdd,
   IoIosTrash,
-  IoIosCloudUpload
+  IoIosCloudUpload,
 } from "react-icons/io";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
 import UpdateCategoriesModal from "./components/UpdateCategoriesModal";
 import AddCategoryModal from "./components/AddCategoryModal";
-import './style.css';
+import "./style.css";
 
 /**
  * @author
@@ -42,21 +42,28 @@ const Category = (props) => {
   const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!category.loading) {
+      setShow(false);
+    }
+  }, [category.loading]);
+
   //button functions of modal
   const handleClose = () => {
     const form = new FormData();
 
-    // if(categoryName === "" ){
-    //   alert("Category Name is required")
-    //   return;
-    // }
+    if (categoryName === "") {
+      alert("Category Name is required");
+      setShow(false);
+      return;
+    }
 
     form.append("name", categoryName);
     form.append("parentId", parentCategoryId);
     form.append("categoryImage", categoryImage);
     dispatch(addCategory(form));
-    setCategoryName('');
-    setParentCategoryId('');
+    setCategoryName("");
+    setParentCategoryId("");
     setShow(false);
   };
 
@@ -65,14 +72,12 @@ const Category = (props) => {
   const renderCategories = (categories) => {
     let myCategories = [];
     for (let category of categories) {
-      myCategories.push(
-        {
-          label: category.name,
-          value: category._id,
-          children:
-            category.children.length > 0 && renderCategories(category.children),
-        }
-      );
+      myCategories.push({
+        label: category.name,
+        value: category._id,
+        children:
+          category.children.length > 0 && renderCategories(category.children),
+      });
     }
     return myCategories;
   };
@@ -156,7 +161,7 @@ const Category = (props) => {
       form.append("type", item.type);
     });
     dispatch(updateCategories(form));
-    setUpdateCategoryModal(false);
+
   };
 
   // DELETE Category Method
@@ -219,7 +224,7 @@ const Category = (props) => {
     );
   };
 
-const categoryList = createCategoryList(category.categories);
+  const categoryList = createCategoryList(category.categories);
 
   return (
     <Layout sidebar>
@@ -230,9 +235,19 @@ const categoryList = createCategoryList(category.categories);
               <h3>Category</h3>
               <div className="actionBtnContainer">
                 <span>Actions: </span> &nbsp;
-                <button onClick={handleShow}><IoIosAdd /><span>Add</span></button>
-                <button onClick={deleteCategory}><IoIosTrash/><span>Delete</span></button> &nbsp;
-                <button onClick={updateCategory}><IoIosCloudUpload/><span>Edit</span></button>
+                <button onClick={handleShow}>
+                  <IoIosAdd />
+                  <span>Add</span>
+                </button>
+                <button onClick={deleteCategory}>
+                  <IoIosTrash />
+                  <span>Delete</span>
+                </button>{" "}
+                &nbsp;
+                <button onClick={updateCategory}>
+                  <IoIosCloudUpload />
+                  <span>Edit</span>
+                </button>
               </div>
             </div>
           </Col>
@@ -262,12 +277,12 @@ const categoryList = createCategoryList(category.categories);
       </Container>
 
       <AddCategoryModal
-         show={show}
-         // handleClose={() => setUpdateCategoryModal(false)}
+        show={show}
+        // handleClose={() => setUpdateCategoryModal(false)}
         handleClose={() => setShow(false)}
-        //  onSubmit={updateCategoriesForm}
+        onSubmit={updateCategoriesForm}
         onSubmit={handleClose}
-         modalTitle={"Add New Category"}
+        modalTitle={"Add New Category"}
         categoryName={categoryName}
         setCategoryName={setCategoryName}
         parentCategoryId={parentCategoryId}
@@ -279,8 +294,7 @@ const categoryList = createCategoryList(category.categories);
       <UpdateCategoriesModal
         show={updateCategoryModal}
         onSubmit={updateCategoriesForm}
-        // handleClose={() => setUpdateCategoryModal(false)}
-        handleClose={updateCategoriesForm}
+        handleClose={() => setUpdateCategoryModal(false)}
         modalTitle={"Update Categories "}
         size="lg"
         expandedArray={expandedArray}

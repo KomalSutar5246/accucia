@@ -19,11 +19,16 @@ function App() {
 const dispatch = useDispatch();
 const auth =  useSelector( state => state.auth);
 
+
+// componentDidMount OR ComponentDidUpdate 
   useEffect(() => {
     if(!auth.authenticate){
       dispatch(isUserLoggedIn());
     }
-    dispatch(getInitialData());
+    if(auth.authenticate)
+    {
+        dispatch(getInitialData());
+    }
 
   }, [dispatch, auth.authenticate]);
 
