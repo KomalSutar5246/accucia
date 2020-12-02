@@ -10,7 +10,7 @@
     cursor: pointer; padding: 0 20px; font-size: 14px;}
 .menuHeader > ul > li > span:hover { color: #2874f0;    }
 .menuHeader > ul > li > ul { position: absolute; background: white; 
-        left: 0; right: 0; display: none; border: 1px solid #cecece;}
+        left: 0; right: 0; display: none; border: 1px solid #cecece; z-index: 1;}
 .menuHeader > ul > li:hover ul{ display: block;  }
 .menuHeader > ul > li > ul > li{ margin: 0 20px; min-width: 150px;  }
 .menuHeader > ul > li > ul > li{ float: left; }

@@ -73,6 +73,7 @@ const UpdateCategoriesModal = (props) => {
                     className="form-control"
                     value={item.type}
                     onChange={(e) => handleCategoryInput('type', e.target.value, index, 'expanded')}
+                    han
                   >
                     <option value="">Select Type</option>
                     <option value="store">Store</option>
