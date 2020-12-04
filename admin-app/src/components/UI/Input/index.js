@@ -28,7 +28,7 @@ const Input = (props) => {
             </Form.Group>
       break;
     case 'text':
-    
+    break;
   default:
     input = <Form.Group>
                   {props.label && <Form.Label>{props.label}</Form.Label>}

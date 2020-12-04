@@ -161,7 +161,6 @@ const Category = (props) => {
       form.append("type", item.type);
     });
     dispatch(updateCategories(form));
-
   };
 
   // DELETE Category Method
@@ -278,9 +277,7 @@ const Category = (props) => {
 
       <AddCategoryModal
         show={show}
-        // handleClose={() => setUpdateCategoryModal(false)}
         handleClose={() => setShow(false)}
-        onSubmit={updateCategoriesForm}
         onSubmit={handleClose}
         modalTitle={"Add New Category"}
         categoryName={categoryName}

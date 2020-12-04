@@ -108,7 +108,7 @@ exports.deleteCategories = async (req, res) => {
     for(let i=0; i < ids.length; i++ ){
         const deleteCategory =  await Category.findOneAndDelete({ _id: ids[i]._id });
         deletedCategories.push(deleteCategory);
-    }
+    }cd
     if(deletedCategories.length == ids.length){
         res.status(201).json({message: 'Category Removed Successfully!!'});
     }else {

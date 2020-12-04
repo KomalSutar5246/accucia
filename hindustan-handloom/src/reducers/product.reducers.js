@@ -12,9 +12,9 @@ const initState = {
   pageRequest: false,
   page: {},
   error: null,
-  // productDetails: {},
+  productDetails: {},
   loading: false,
-};
+}; 
 
 export default (state = initState, action) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ export default (state = initState, action) => {
         ...state,
         products: action.payload.products,
         productsByPrice: {
-          ...action.payload.productsByPrice,
+          ...action.payload.productsByPrice
         },
       };
       break;
@@ -47,6 +47,28 @@ export default (state = initState, action) => {
         error: action.payload.error,
       };
       break;
-  }
+      case productConstants.GET_PRODUCT_DETAILS_BY_ID_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case productConstants.GET_PRODUCT_DETAILS_BY_ID_SUCCESS:
+            state = {
+                ...state,
+                loading: false,
+                productDetails: action.payload.productDetails
+            }
+            break;
+        case productConstants.GET_PRODUCT_DETAILS_BY_ID_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
+            break;
+    }
+  
   return state;
-};
+}
+
