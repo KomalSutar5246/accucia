@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from '../src/containers/HomePage';  
 import ProductListPage  from '../src/containers/ProductListPage';
 import { useDispatch, useSelector } from "react-redux";
-import { isUserLoggedIn } from './actions';
+import { isUserLoggedIn, updateCart} from './actions';
 import ProductDetailsPage from "./containers/ProductDetailsPage";
+import CartPage from "./containers/CartPage";
 
 
 
@@ -20,12 +21,17 @@ useEffect(() => {
   }
 }, [auth.authenticate])
 
+useEffect(() => {
+  // console.log("App.js - updateCart");
+  dispatch(updateCart());
+}, []);
 
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/" exact component = { HomePage } />
+          <Route path="/cart" component={CartPage} />
           <Route
             path="/:productSlug/:productId/p"
             component={ProductDetailsPage}

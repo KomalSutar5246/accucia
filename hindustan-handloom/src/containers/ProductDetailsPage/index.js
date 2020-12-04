@@ -79,7 +79,7 @@ const ProductDetailsPage = (props) => {
                 onClick={() => {
                   const { _id, name, price } = product.productDetails;
                   const img = product.productDetails.productPictures[0].img;
-                  // dispatch(addToCart({ _id, name, price, img }));
+                  dispatch(addToCart({ _id, name, price, img }));
                   props.history.push(`/cart`);
                 }}
               />
