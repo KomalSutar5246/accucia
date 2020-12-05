@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import Card from "../../components/UI/Card";
-// import { generatePublicUrl } from "../../urlConfig";
+import { generatePublicUrl } from "../../urlConfig";
 import CartItem from "./CartItem";
 import { addToCart, getCartItems } from "../../actions";
 // import PriceDetails from "../../components/PriceDetails";
@@ -25,6 +25,7 @@ if logged in then add products to users cart database from localStorage
 
 const CartPage = (props) => {
   const cart = useSelector((state) => state.cart);
+  const auth = useSelector((state) => state.auth);
   // const cartItems = cart.cartItems;
   const [cartItems, setCartItems] = useState(cart.cartItems);
   const dispatch = useDispatch();
@@ -32,6 +33,12 @@ const CartPage = (props) => {
   useEffect(() => {
     setCartItems(cart.cartItems);
   }, [cart.cartItems]);
+
+  useEffect(() => {
+    if (auth.authenticate) {
+      dispatch(getCartItems());
+    }
+  }, [auth.authenticate]);
 
   const onQuantityIncrement = (_id, qty) => {
     console.log({ _id, qty });
