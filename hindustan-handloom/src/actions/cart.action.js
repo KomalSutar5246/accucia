@@ -115,3 +115,4 @@ export const updateCart = () => {
 };
 
 export { getCartItems };
+ 

@@ -6,7 +6,7 @@ const initState = {
     loading: false
 }
 
-const rootReducer = (state = initState, action) => {
+export default (state = initState, action) => {
     switch(action.type){
         case userConstants.USER_REGISTER_REQUEST:
             state = {
@@ -15,22 +15,20 @@ const rootReducer = (state = initState, action) => {
             }
             break;
         case userConstants.USER_REGISTER_SUCCESS:
-                state = {
-                    ...state,
-                    loading: false,
-                    message: action.payload.message
-                }
+            state = {
+                ...state,
+                loading: false,
+                message: action.payload.message
+            }
             break;
         case userConstants.USER_REGISTER_FAILURE:
-                    state = {
-                        ...state,
-                        loading: false,
-                        error: action.payload.error
-                    }
+            state = {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
             break;
-
     }
+
     return state;
 }
-
-export default rootReducer;
