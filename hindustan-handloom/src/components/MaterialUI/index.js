@@ -29,7 +29,7 @@ const MaterialInput = (props) => {
 
     return (
         <div className="materialInput">
-            <label className={`label ${focus ? 'focus' : ''}`} style={{
+            <label className = { ` label ${focus ? 'focus' : ' ' } ` } style={{
                 top: 0,
                 lineHeight: 'none'
             }}>{props.label}</label>
@@ -95,12 +95,10 @@ const DropdownMenu = (props) => {
               <li key={index}>
               <a
                 onClick={(e) => {
-                //   if (item.onClick) {
                     e.preventDefault();
                     item.onClick && item.onClick();
                   }
                 }
-            //}
                 href={`${item.href}`}
               >
                 {item.label}

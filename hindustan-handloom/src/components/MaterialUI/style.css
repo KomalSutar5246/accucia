@@ -33,7 +33,7 @@
   width: 100%;
   min-width: 300px;
   height: 30px;
-  border-bottom: 2px solid #2874f0;
+  border-bottom: 2px solid  rgb(56, 56, 56);;
   position: relative;
   /* background-color: red; */
   margin-top: 25px;

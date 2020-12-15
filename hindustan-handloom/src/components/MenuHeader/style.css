@@ -8,7 +8,7 @@
 .menuHeader > ul { display: flex; margin: 0 50px; position: relative; }
 .menuHeader > ul > li > span { display: block; line-height: 40px; 
     cursor: pointer; padding: 0 20px; font-size: 14px;}
-.menuHeader > ul > li > span:hover { color: #2874f0;    }
+.menuHeader > ul > li > span:hover { color:  rgb(56, 56, 56);;    }
 .menuHeader > ul > li > ul { position: absolute; background: white; 
         left: 0; right: 0; display: none; border: 1px solid #cecece; z-index: 1;}
 .menuHeader > ul > li:hover ul{ display: block;  }
