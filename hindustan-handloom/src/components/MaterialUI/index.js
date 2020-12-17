@@ -82,7 +82,7 @@ const MaterialButton = (props) => {
     );
   };
   
-const DropdownMenu = (props) => {
+  const DropdownMenu = (props) => {
     return (
       <div className="headerDropdownContainer">
         {props.menu}
@@ -90,27 +90,27 @@ const DropdownMenu = (props) => {
           <div className="upArrow"></div>
           {props.firstMenu}
           <ul className="headerDropdownMenu">
-            {
-              props.menus && props.menus.map((item, index) =>
-              <li key={index}>
-              <a
-                onClick={(e) => {
-                    e.preventDefault();
-                    item.onClick && item.onClick();
-                  }
-                }
-                href={`${item.href}`}
-              >
-                {item.label}
-              </a>
-            </li>
-              )
-            }
+            {props.menus &&
+              props.menus.map((item, index) => (
+                <li key={index}>
+                  <a
+                    onClick={(e) => {
+                      if (item.onClick) {
+                        e.preventDefault();
+                        item.onClick && item.onClick();
+                      }
+                    }}
+                    href={`${item.href}`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
     );
-  }
+  };
 
   const Anchor = (props) => {
     return (
@@ -119,10 +119,28 @@ const DropdownMenu = (props) => {
       </button>
     );
   };
+
+  const Breed = (props) => {
+    return (
+      <div className="breed">
+        <ul>
+          {props.breed &&
+            props.breed.map((item, index) => (
+              <li key={index}>
+                <a href={item.href}>{item.name}</a>
+                {props.breedIcon}
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
+  };
+
 export {
     Modal,
     MaterialInput,
     MaterialButton,
     DropdownMenu,
-    Anchor
+    Anchor,
+    Breed 
 }

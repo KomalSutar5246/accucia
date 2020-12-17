@@ -11,7 +11,7 @@ exports.createProduct = (req, res) => {
 
   if (req.files.length > 0) {
     productPictures = req.files.map((file) => {
-      return { img: file.filename };
+      return { img: file.location };
     });
   }
 
@@ -29,14 +29,13 @@ exports.createProduct = (req, res) => {
   product.save((error, product) => {
     if (error) return res.status(400).json({ error });
     if (product) {
-      res.status(201).json({ product });
+      res.status(201).json({ product, files: req.files });
     }
   });
 };
 
 exports.getProductsBySlug = (req, res) => {
   const { slug } = req.params;
-  console.log(slug);
   Category.findOne({ slug: slug })
     .select("_id type")
     .exec((error, category) => {
@@ -54,6 +53,13 @@ exports.getProductsBySlug = (req, res) => {
             if (products.length > 0) {
               res.status(200).json({
                 products,
+                priceRange: {
+                  under5k: 5000,
+                  under10k: 10000,
+                  under15k: 15000,
+                  under20k: 20000,
+                  under30k: 30000,
+                },
                 productsByPrice: {
                   under5k: products.filter((product) => product.price <= 5000),
                   under10k: products.filter(
@@ -80,15 +86,39 @@ exports.getProductsBySlug = (req, res) => {
 };
 
 exports.getProductDetailsById = (req, res) => {
-    const { productId } = req.params;
-    if (productId) {
-      Product.findOne({ _id: productId }).exec((error, product) => {
-        if (error) return res.status(400).json({ error });
-        if (product) {
-          res.status(200).json({ product });
-        }
-      });
-    } else {
-      return res.status(400).json({ error: "Params required" });
-    }
-  };
+  const { productId } = req.params;
+  if (productId) {
+    Product.findOne({ _id: productId }).exec((error, product) => {
+      if (error) return res.status(400).json({ error });
+      if (product) {
+        res.status(200).json({ product });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
+
+// new update
+exports.deleteProductById = (req, res) => {
+  const { productId } = req.body.payload;
+  if (productId) {
+    Product.deleteOne({ _id: productId }).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  } else {
+    res.status(400).json({ error: "Params required" });
+  }
+};
+
+exports.getProducts = async (req, res) => {
+  const products = await Product.find({})
+    .select("_id name price quantity slug description productPictures category")
+    .populate({ path: "category", select: "_id name" })
+    .exec();
+
+  res.status(200).json({ products });
+};
