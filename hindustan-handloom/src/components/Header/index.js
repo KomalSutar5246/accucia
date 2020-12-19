@@ -124,9 +124,17 @@ const Header = (props) => {
         ]}
         firstMenu={
           <div className="firstmenu">
-            <span>New Customer?</span>
-            <a style={{ color: " rgb(56, 56, 56);" }}>Sign Up</a>
-          </div>
+          <span>New Customer?</span>
+          <a
+            onClick={() => {
+              setLoginModal(true);
+              setSignup(true);
+            }}
+            style={{ color: "#2874f0" }}
+          >
+            Sign Up
+          </a>
+        </div>
         }
       />
     );
