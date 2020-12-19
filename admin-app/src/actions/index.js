@@ -4,3 +4,4 @@ export * from '../actions/category.action';
 export * from '../actions/initialData.action';
 export * from '../actions/product.action';
 export * from '../actions/page.action';
+export * from "../actions/order.action";
