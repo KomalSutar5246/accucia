@@ -1,8 +1,3 @@
-// import { createStore } from "redux"
-
-// export default (state = {name: 'komal'}, action ) => { 
-//     return state;
-// } 
 import authReducer from './auth.reducers';
 import userReducer from './user.reducer';
 import categoryReducer from './category.reducers';

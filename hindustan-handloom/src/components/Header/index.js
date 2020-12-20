@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import logo from "../../images/logo/logo.png";
 import star from "../../images/logo/star.jpg";
@@ -11,7 +11,7 @@ import {
 } from "../MaterialUI";
 import { useDispatch, useSelector } from "react-redux";
 import { login, signout, getCartItems, signup as _signup } from "../../actions";
-import Cart from "../UI/Cart.js";
+import Cart from "../UI/Cart";
 
 /**
  * @author
@@ -64,7 +64,7 @@ const Header = (props) => {
     }
   }, [auth.authenticate]);
 
-  //useEffect(() => {
+  // useEffect(() => {
   //   dispatch(getCartItems());
   // }, []);
 
@@ -74,8 +74,8 @@ const Header = (props) => {
         menu={<a className="fullName">{auth.user.fullName}</a>}
         menus={[
           { label: "My Profile", href: "", icon: null },
-          { label: "Super Coin Zone", href: "", icon: null },
-          { label: "Prime-Plus Zone", href: "", icon: null },
+          { label: "SuperCoin Zone", href: "", icon: null },
+          { label: "Prime Plus Zone", href: "", icon: null },
           {
             label: "Orders",
             href: `/account/orders`,
@@ -85,8 +85,8 @@ const Header = (props) => {
           { label: "My Chats", href: "", icon: null },
           { label: "Coupons", href: "", icon: null },
           { label: "Rewards", href: "", icon: null },
-          { label: "Gift Cards", href: "", icon: null },
           { label: "Notifications", href: "", icon: null },
+          { label: "Gift Cards", href: "", icon: null },
           { label: "Logout", href: "", icon: null, onClick: logout },
         ]}
       />
@@ -109,7 +109,7 @@ const Header = (props) => {
         }
         menus={[
           { label: "My Profile", href: "", icon: null },
-          { label: "Prime-Plus Zone", href: "", icon: null },
+          { label: "Prime Plus Zone", href: "", icon: null },
           {
             label: "Orders",
             href: `/account/orders`,
@@ -124,17 +124,17 @@ const Header = (props) => {
         ]}
         firstMenu={
           <div className="firstmenu">
-          <span>New Customer?</span>
-          <a
-            onClick={() => {
-              setLoginModal(true);
-              setSignup(true);
-            }}
-            style={{ color: "#2874f0" }}
-          >
-            Sign Up
-          </a>
-        </div>
+            <span>New Customer?</span>
+            <a
+              onClick={() => {
+                setLoginModal(true);
+                setSignup(true);
+              }}
+              style={{ color: "#2874f0" }}
+            >
+              Sign Up
+            </a>
+          </div>
         }
       />
     );
@@ -170,21 +170,20 @@ const Header = (props) => {
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 )}
+
                 <MaterialInput
                   type="text"
-                  label="Enter Email/Enter Mobile Number"
+                  label="Email/Mobile Number"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
                 <MaterialInput
                   type="password"
-                  label="Enter Password"
+                  label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   // rightElement={<a href="#">Forgot?</a>}
                 />
-
                 <MaterialButton
                   title={signup ? "Register" : "Login"}
                   bgColor="#fb641b"
@@ -195,11 +194,10 @@ const Header = (props) => {
                   onClick={userLogin}
                 />
                 <p style={{ textAlign: "center" }}>OR</p>
-
                 <MaterialButton
                   title="Request OTP"
                   bgColor="#ffffff"
-                  textColor=" rgb(56, 56, 56);"
+                  textColor="#2874f0"
                   style={{
                     margin: "20px 0",
                   }}
@@ -209,8 +207,8 @@ const Header = (props) => {
           </div>
         </div>
       </Modal>
-      {/* Logo */}
       <div className="subHeader">
+        {/* Logo  */}
         <div className="logo">
           <a href="">
             <img src={logo} className="logoimage" alt="" />
@@ -221,9 +219,9 @@ const Header = (props) => {
             <img src={star} className="goldenStar" alt="" />
           </a>
         </div>
-        {/* Logo ENDS */}
+        {/* logo ends here */}
 
-        {/* Search Component */}
+        {/* search component */}
         <div
           style={{
             padding: "0 10px",
@@ -237,19 +235,17 @@ const Header = (props) => {
             <div className="searchIconContainer">
               <IoIosSearch
                 style={{
-                  color: " rgb(56, 56, 56);",
+                  color: "#2874f0",
                 }}
               />
             </div>
           </div>
         </div>
-        {/* Search Component emds here */}
+        {/* search component ends here */}
 
-        {/* Right Side Menu */}
+        {/* right side menu */}
         <div className="rightMenu">
           {auth.authenticate ? renderLoggedInMenu() : renderNonLoggedInMenu()}
-
-          {/* More OPTIONS */}
           <DropdownMenu
             menu={
               <a className="more">
@@ -259,7 +255,7 @@ const Header = (props) => {
             }
             menus={[
               { label: "Notification Preference", href: "", icon: null },
-              { label: "Sell on Hindustan Handlooms", href: "", icon: null },
+              { label: "Sell on Dkashin Bharath Handloom", href: "", icon: null },
               { label: "24x7 Customer Care", href: "", icon: null },
               { label: "Advertise", href: "", icon: null },
               { label: "Download App", href: "", icon: null },
@@ -272,7 +268,7 @@ const Header = (props) => {
             </a>
           </div>
         </div>
-        {/* Right Side Menu ENDS */}
+        {/* right side menu ends here */}
       </div>
     </div>
   );

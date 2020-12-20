@@ -56,27 +56,29 @@ const Signup = (props) => {
     <Layout>
       <Container>
         {user.message}
-        <Row style={{ marginTop: "150px" }}>
+        <Row style={{ marginTop: "100px" }}>
           <Col md={{ span: 6, offset: 3 }}>
             <Form onSubmit={userSignup}>
               <Row>
+                
                 <Col md={6}>
                   <Input
                     label="First Name"
                     placeholder="First Name"
                     value={firstName}
-                    type="text"
+                    type=""
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </Col>
+
                 <Col md={6}>
-                  <Input
-                    label="Last Name"
-                    placeholder="Last Name"
-                    value={lastName}
-                    type="text"
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
+                <Input
+                label="Last Name"
+                placeholder="Last Name"
+                value={lastName}
+                type=""
+                onChange={(e) => setLastName(e.target.value)}
+              />
                 </Col>
               </Row>
 

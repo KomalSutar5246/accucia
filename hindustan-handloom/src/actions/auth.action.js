@@ -1,5 +1,5 @@
-import axios from "../helpers/axios";
 import { authConstants, cartConstants } from "./constants";
+import axios from "../helpers/axios";
 
 // new update signup action
 export const signup = (user) => {
@@ -35,11 +35,8 @@ export const signup = (user) => {
 };
 
 export const login = (user) => {
-  console.log(user);
-
   return async (dispatch) => {
     dispatch({ type: authConstants.LOGIN_REQUEST });
-
     const res = await axios.post(`/signin`, {
       ...user,
     });
@@ -63,13 +60,6 @@ export const login = (user) => {
         });
       }
     }
-
-    // dispatch({
-    //     type: authConstants.LOGIN_REQUEST,
-    //     payload: {
-    //         ...user
-    //     }
-    // });
   };
 };
 
@@ -77,7 +67,7 @@ export const isUserLoggedIn = () => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = localStorage.getItem("user");
       dispatch({
         type: authConstants.LOGIN_SUCCESS,
         payload: {
