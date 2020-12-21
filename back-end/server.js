@@ -1,10 +1,13 @@
+require("dotenv").config();
 const express = require ('express');
 const env = require ('dotenv');
+const bodyParser = require("body-parser");
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 // routes
+
 const authRoutes = require('./src/routes/auth');
 const adminRoutes = require('./src/routes/admin/auth');
 const categoryRoutes = require('./src/routes/category');
@@ -18,6 +21,7 @@ const adminOrderRoute = require("./src/routes/admin/order.routes");
 
 //environment variables or you can say constants
 env.config();
+app.use(bodyParser.json());
 
 //mongodb connection
 //mongodb+srv://root:<password>@cluster0.fflpw.mongodb.net/<dbname>?retryWrites=true&w=majority
@@ -38,7 +42,7 @@ app.use(express.json());
 
 // app.get('/', (req,res, next) => {
 //     res.status(200).json(
-//         {message: 'Hello MERN React App' 
+//         {message: 'Hello MERN Dakshin Bharath Handloom' 
 //     });
 // });
 

@@ -1,7 +1,7 @@
 .header{
   width: 100%;
   height: 56px;
-  background: rgb(216, 99, 20);
+  background: rgb(171, 236, 118);
 }
 .subHeader{
   max-width: 1100px;
@@ -22,7 +22,7 @@
   align-items: flex-end;
 }
 .logo .logoimage{
-  width: 75px;
+  width: 100px;
 }
 .exploreText{ 
   font-size: 10px;
@@ -73,7 +73,7 @@
   display: block;
   width: 100px;
   height: 30px;
-  background: #fff;
+  /* background: rgb(97, 245, 250); */
   text-align: center;
   line-height: 30px;
   color: rgb(56, 56, 56);
@@ -83,7 +83,7 @@
 }
 .more, .fullName {
   font-weight: bold;
-  color: #fff;
+  color: rgb(15, 15, 15);
   display: flex;
   align-items: center;
   margin: 0 20px;
@@ -91,7 +91,7 @@
 }
 .cart {
   font-weight: bold;
-  color: #fff;
+  color: rgb(15, 15, 15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,7 +118,7 @@ height: 528px;
 .leftspace{
 width: 40%;
 height: 100%;
-color: #fff;
+color: rgb(15, 15, 15);
 letter-spacing: 1px;
 background-image: url('../../images/logo/login3.png');
 background-color: gray;

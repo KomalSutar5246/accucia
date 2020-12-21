@@ -2,9 +2,10 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const shortid = require("shortid");
+const JWT_SECRET = "MERNSECRET";
 
 const generateJwtToken = (_id, role) => {
-  return jwt.sign({ _id, role }, process.env.JWT_SECRET, {
+  return jwt.sign({ _id, role }, JWT_SECRET, {
     expiresIn: "1d",
   });
 };

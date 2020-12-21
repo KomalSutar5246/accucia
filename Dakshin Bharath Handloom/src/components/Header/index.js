@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import logo from "../../images/logo/logo.png";
-import star from "../../images/logo/star.jpg";
+//import star from "../../images/logo/star.jpg";
 import { IoIosArrowDown, IoIosCart, IoIosSearch } from "react-icons/io";
 import {
   Modal,
@@ -187,7 +187,7 @@ const Header = (props) => {
                 <MaterialButton
                   title={signup ? "Register" : "Login"}
                   bgColor="#fb641b"
-                  textColor="#ffffff"
+                  textColor="#000"
                   style={{
                     margin: "40px 0 20px 0",
                   }}
@@ -210,14 +210,14 @@ const Header = (props) => {
       <div className="subHeader">
         {/* Logo  */}
         <div className="logo">
-          <a href="">
-            <img src={logo} className="logoimage" alt="" />
+          <a href="/">
+            <img src={logo} className="logoimage" alt="logo img" />
           </a>
-          <a style={{ marginTop: "-10px" }}>
+          {/* <a style={{ marginTop: "-10px" }}>
             <span className="exploreText">Explore</span>
             <span className="plusText">Plus</span>
             <img src={star} className="goldenStar" alt="" />
-          </a>
+          </a> */}
         </div>
         {/* logo ends here */}
 

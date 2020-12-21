@@ -21,7 +21,7 @@ const OrderPage = (props) => {
 
   useEffect(() => {
     dispatch(getOrders());
-  }, []);
+  }, [dispatch]);
 
   console.log(user);
 
@@ -47,6 +47,7 @@ const OrderPage = (props) => {
                   <img
                     className="orderImg"
                     src={item.productId.productPictures[0].img}
+                    alt = "images"
                   />
                 </div>
                 <div className="orderRow">
