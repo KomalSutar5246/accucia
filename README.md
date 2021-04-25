@@ -1,2 +1,4 @@
-# Dakshin Bharath Handloom
-This is an E-commerce handloom website, to upload, promote and sale products. This mainly a south handloom categorized product site.
+
+# accuciaTask
+1)create product category master with croud operation.(fields:category_name,status,createdAt,updatedAt).  2)create product details insert operation using API (fields:product_name,price,quantity,category_id,createdAt,updatedAt). 3)create API to get product category with latest 3 product details output: { "_id": "5e7a3656dd6ae922d44dc28e", "category_name": "cloths", "createdAt": "2020-03-24T16:33:26.341Z", "updatedAt": "2020-03-24T16:33:26.341Z", "category_details": [ { "_id": "5efc66c877d61445584b679d", "product_name": "product1" "quantity": "10", "price": 25000, "createdAt": "2020-03-24T16:33:26.341Z", "updatedAt": "2020-03-24T16:33:26.341Z", }, { "_id": "5efc66c877d61445584b679r", "product_name": "product2" "quantity": "1", "price": 2000, "createdAt": "2020-03-24T16:33:26.341Z", "updatedAt": "2020-03-24T16:33:26.341Z", } ] }, { .... ..... .... }, { .... ..... .... } ]
+
